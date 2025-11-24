@@ -56,7 +56,7 @@ export default function StepPhoto({ onNext, onBack }: StepPhotoProps) {
       />
 
       {imageSrc && (
-        <div className="relative w-full h-[350px] bg-black/20 rounded overflow-hidden">
+        <div className="relative w-full h-[320px] bg-black/20 rounded-2xl overflow-hidden sm:h-[360px]">
           <Cropper
             image={imageSrc}
             crop={crop}
@@ -70,8 +70,10 @@ export default function StepPhoto({ onNext, onBack }: StepPhotoProps) {
       )}
 
       {imageSrc && (
-        <div className="flex gap-4 items-center">
-          <label className="font-medium">Zoom:</label>
+        <div className="flex flex-col gap-3 items-start sm:flex-row sm:items-center">
+          <label className="font-medium text-sm uppercase tracking-widest text-slate-500">
+            Zoom
+          </label>
           <input
             type="range"
             min={1}
@@ -79,16 +81,16 @@ export default function StepPhoto({ onNext, onBack }: StepPhotoProps) {
             step={0.1}
             value={zoom}
             onChange={(e) => setZoom(Number(e.target.value))}
-            className="w-full"
+            className="w-full sm:flex-1 accent-blue-600"
           />
         </div>
       )}
 
-      <div className="flex justify-between mt-6">
+      <div className="flex flex-col gap-3 mt-6 sm:flex-row sm:justify-between">
         <button
           type="button"
           onClick={onBack}
-          className="px-4 py-2 rounded border bg-gray-100 hover:bg-gray-200"
+          className="w-full sm:w-auto px-4 py-2 rounded-full border bg-gray-100 hover:bg-gray-200"
         >
           Назад
         </button>
@@ -97,7 +99,7 @@ export default function StepPhoto({ onNext, onBack }: StepPhotoProps) {
           type="button"
           disabled={!imageSrc}
           onClick={handleApply}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:opacity-40"
+          className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full disabled:opacity-40"
         >
           Применить →
         </button>

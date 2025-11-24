@@ -5,21 +5,25 @@ interface ResumePreviewProps {
   resume: ResumeState;
   previewId: string;
   className?: string;
+  responsive?: boolean;
 }
 
 export default function ResumePreview({
   resume,
   previewId,
-  className = ""
+  className = "",
+  responsive = false
 }: ResumePreviewProps) {
+  const widthClass = responsive ? "w-full max-w-[800px]" : "w-[800px]";
+
   return (
     <div
       id={previewId}
-      className={`w-[800px] mx-auto bg-white p-10 shadow-lg text-black ${className}`}
+      className={`${widthClass} mx-auto bg-white p-6 sm:p-10 shadow-lg text-black rounded-3xl border border-slate-200 ${className}`}
     >
-      <div className="flex items-center gap-6 justify-center mb-8">
+      <div className="flex flex-col items-center gap-4 justify-center mb-8 text-center md:flex-row md:text-left">
         {resume.photoDataUrl && (
-          <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-blue-600 shadow">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-blue-600 shadow">
             <img
               src={resume.photoDataUrl}
               alt="Photo"
@@ -28,18 +32,18 @@ export default function ResumePreview({
           </div>
         )}
 
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-blue-900 mb-2">
+        <div className="space-y-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-blue-900">
             {resume.fullName}
           </h1>
           {resume.role && (
-            <p className="text-lg font-semibold text-blue-600 mb-2">
+            <p className="text-base sm:text-lg font-semibold text-blue-600">
               {resume.role}
             </p>
           )}
-          <div className="flex flex-col gap-1 text-gray-600">
-            <p className="text-sm">{resume.email}</p>
-            {resume.phone && <p className="text-sm">{resume.phone}</p>}
+          <div className="flex flex-col gap-1 text-gray-600 text-sm">
+            <p>{resume.email}</p>
+            {resume.phone && <p>{resume.phone}</p>}
           </div>
         </div>
       </div>

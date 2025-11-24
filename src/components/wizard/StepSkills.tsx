@@ -91,7 +91,7 @@ export default function StepSkills({ onNext, onBack }: StepSkillsProps) {
 
         {/* Категории навыков */}
         {showCategories && (
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-1 gap-3 mb-4 sm:grid-cols-2 lg:grid-cols-3">
             {(Object.keys(skillCategories) as Array<keyof typeof skillCategories>).map((category) => (
               <button
                 key={category}
@@ -119,7 +119,7 @@ export default function StepSkills({ onNext, onBack }: StepSkillsProps) {
               {activeCategory === "backend" && "🔧 Backend навыки"}
               {activeCategory === "fullstack" && "🚀 Fullstack навыки"}
             </h3>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {skillCategories[activeCategory].map((skill) => (
                 <button
                   key={skill}
@@ -184,18 +184,18 @@ export default function StepSkills({ onNext, onBack }: StepSkillsProps) {
         </div>
       )}
 
-      <div className="flex justify-between mt-6">
+      <div className="flex flex-col gap-3 mt-6 sm:flex-row sm:justify-between">
         <button
           type="button"
           onClick={onBack}
-          className="px-4 py-2 rounded border bg-gray-100 hover:bg-gray-200"
+          className="w-full sm:w-auto px-4 py-2 rounded-full border bg-gray-100 hover:bg-gray-200"
         >
           ← Назад
         </button>
 
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+          className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full"
         >
           Далее →
         </button>

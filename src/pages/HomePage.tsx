@@ -137,8 +137,8 @@ export default function HomePage() {
         </div>
       )}
 
-      <div className="min-h-screen w-full bg-linear-to-b from-slate-50 via-white to-slate-100">
-      <header className="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
+      <div className="min-h-screen w-full bg-linear-to-b from-slate-50 via-white to-slate-100 rounded-3xl border border-white/60 shadow-sm px-4 py-12 sm:px-6 lg:px-10">
+      <header className="max-w-5xl mx-auto text-center space-y-6">
         <p className="inline-flex items-center text-xs font-semibold tracking-[0.3em] uppercase text-blue-500 mb-4">
           resume builder 2.0
         </p>
@@ -151,7 +151,7 @@ export default function HomePage() {
           и вернуться к нему всего в один клик.
         </p>
 
-        <div className="grid gap-4 md:grid-cols-3 text-left">
+        <div className="grid grid-cols-1 gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
               title: "Гибкость",
@@ -179,16 +179,16 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="flex flex-col items-center text-center">
+      <section className="flex flex-col items-center text-center mt-12">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
           Выберите направление резюме
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl px-4">
+        <div className="grid grid-cols-1 gap-4 w-full max-w-3xl md:grid-cols-3">
         {roles.map((r) => (
           <button
             key={r.key}
-            className="p-6 bg-gray-100 hover:bg-gray-200 rounded-xl border border-gray-300 text-xl font-semibold transition"
+            className="p-6 bg-white hover:bg-gray-50 rounded-2xl border border-gray-200 text-lg font-semibold transition shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             onClick={() => handleSelect(r.key)}
           >
             {r.label}
@@ -198,7 +198,7 @@ export default function HomePage() {
       </section>
 
       {savedResumes.length > 0 && (
-        <div className="w-full max-w-4xl px-4 mt-12">
+        <div className="w-full max-w-4xl mt-12 space-y-6">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">
             Мои резюме
           </h2>
@@ -206,7 +206,7 @@ export default function HomePage() {
             {savedResumes.map((template) => (
               <div
                 key={template.id}
-                className="p-4 border border-gray-200 rounded-xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gray-50"
+                className="p-5 border border-gray-200 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white shadow-sm"
               >
                 <div>
                   <p className="text-lg font-semibold text-gray-900">
@@ -220,22 +220,22 @@ export default function HomePage() {
                     {new Date(template.updatedAt).toLocaleString("ru-RU")}
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-2 w-full sm:flex-row sm:flex-wrap sm:w-auto">
                   <button
                     onClick={() => handleEdit(template)}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+                    className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold text-sm shadow"
                   >
                     Редактировать
                   </button>
                   <button
                     onClick={() => void handleDownload(template)}
-                    className="px-4 py-2 border border-blue-600 text-blue-600 hover:bg-blue-50 rounded"
+                    className="w-full sm:w-auto px-4 py-2 border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-full font-semibold text-sm"
                   >
                     Скачать PDF →
                   </button>
                   <button
                     onClick={() => requestDelete(template)}
-                    className="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded"
+                    className="w-full sm:w-auto px-4 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded-full font-semibold text-sm"
                   >
                     Удалить
                   </button>

@@ -96,7 +96,11 @@ export default function StepReview({ onBack, onNext }: StepReviewProps) {
         <h2 className="text-2xl font-bold">Предпросмотр резюме</h2>
 
         {/* Обёртка превью резюме */}
-        <ResumePreview resume={state} previewId="resume-preview" />
+        <ResumePreview
+          resume={state}
+          previewId="resume-preview"
+          responsive
+        />
 
         {/* Buttons */}
         <div className="flex justify-between max-w-3xl mx-auto mt-6">

@@ -77,10 +77,10 @@ export default function StepGeneral({ onNext }: StepGeneralProps) {
       </div>
 
       <div>
-        <label className="block font-medium">Телефон</label>
-        <div className="flex gap-2">
+        <label className="block font-medium mb-2">Телефон</label>
+        <div className="flex flex-col gap-3 sm:flex-row">
           <select
-        className="border p-2 rounded w-32"
+        className="border p-2 rounded w-full sm:w-36"
         defaultValue="+996"
           >
         <option value="+7">🇷🇺 Россия +7</option>
@@ -94,7 +94,7 @@ export default function StepGeneral({ onNext }: StepGeneralProps) {
           </select>
           <input
         {...register("phone")}
-        className="flex-1 border p-2 rounded"
+        className="flex-1 border p-2 rounded w-full"
         placeholder="555-12-34"
           />
         </div>

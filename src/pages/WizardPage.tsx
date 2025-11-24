@@ -20,7 +20,7 @@ export default function WizardPage() {
   }
 
   return (
-    <div className="min-h-screen p-8 bg-gray-50">
+    <div className="min-h-screen w-full rounded-3xl border border-white/60 bg-white/70 backdrop-blur px-4 py-10 sm:px-6 lg:px-12 shadow-sm">
       <WizardLayout />
     </div>
   );

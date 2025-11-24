@@ -7,9 +7,9 @@ import WizardPage from "./pages/WizardPage";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
       <Header />
-      <main className="pt-24">
+      <main className="pt-24 flex-1 w-full px-4 pb-10 sm:px-6 lg:px-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/wizard" element={<WizardPage />} />

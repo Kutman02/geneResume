@@ -52,37 +52,43 @@ export default function WizardLayout() {
       return <div>Шаг в разработке...</div>;
   }
 }
+  const totalSteps = wizardSteps.length;
+  const progress = Math.round(((stepIndex + 1) / totalSteps) * 100);
+
   return (
-    <div className="max-w-3xl mx-auto">
-      {/* Progress */}
-      <div className="flex items-center gap-4 my-6">
-        {wizardSteps.map((s, i) => (
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div className="rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">
+              шаг {step.id} / {totalSteps}
+            </p>
+            <h2 className="text-2xl font-bold text-slate-900">{step.label}</h2>
+          </div>
+          <span className="text-sm font-semibold text-slate-500">
+            {progress}% готово
+          </span>
+        </div>
+        <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
           <div
-            key={s.key}
-            className={`h-2 flex-1 rounded ${
-              i <= stepIndex ? "bg-blue-500" : "bg-gray-300"
-            }`}
+            className="h-2 bg-blue-600 rounded-full transition-all"
+            style={{ width: `${progress}%` }}
+            aria-label={`Прогресс ${progress}%`}
           />
-        ))}
+        </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-4">
-        {step.id}. {step.label}
-      </h2>
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-lg sm:p-8">
+        {renderStep()}
+      </div>
 
-      {/* Actual Step */}
-      <div>{renderStep()}</div>
-
-      {/* Navigation */}
-      <div className="flex justify-between mt-8">
-      
-
+      <div className="flex flex-wrap justify-end gap-3">
         {stepIndex < wizardSteps.length - 1 && (
           <button
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold shadow-sm"
             onClick={next}
           >
-            Пропустить
+            Пропустить шаг
           </button>
         )}
       </div>

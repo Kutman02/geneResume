@@ -129,7 +129,7 @@ export default function StepExperience({ onNext, onBack }: StepExperienceProps) 
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="grid gap-1">
               <label>Дата начала</label>
               <input
@@ -193,18 +193,18 @@ export default function StepExperience({ onNext, onBack }: StepExperienceProps) 
         + Добавить опыт
       </button>
 
-      <div className="flex justify-between mt-4">
+      <div className="flex flex-col gap-3 mt-4 sm:flex-row sm:justify-between">
         <button
           type="button"
           onClick={onBack}
-          className="px-4 py-2 border rounded bg-gray-100 hover:bg-gray-200"
+          className="w-full sm:w-auto px-4 py-2 border rounded-full bg-gray-100 hover:bg-gray-200"
         >
           ← Назад
         </button>
 
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+          className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full"
         >
           Далее →
         </button>
