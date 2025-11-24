@@ -8,7 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const experienceSchema = z.object({
   jobTitle: z.string().min(2, "Введите должность"),
   company: z.string().min(2, "Введите название компании"),
-  period: z.string().min(2, "Введите период работы"),
+  startDate: z.string().min(1, "Введите дату начала"),
+  endDate: z.string().min(1, "Введите дату окончания"),
   description: z.string().min(10, "Минимум 10 символов")
 });
 
@@ -36,19 +37,17 @@ export default function StepExperience({ onNext, onBack }: StepExperienceProps) 
     defaultValues: {
       experience: state.experiences && state.experiences.length
         ? state.experiences.map((exp) => {
-            // exp может иметь разную форму (position/startDate/endDate) — приводим к форме формы
             const anyExp = exp as any;
             const jobTitle = anyExp.jobTitle ?? anyExp.position ?? "";
             const company = anyExp.company ?? "";
-            const period =
-              (anyExp.startDate && anyExp.endDate)
-                ? `${anyExp.startDate} — ${anyExp.endDate}`
-                : anyExp.period ?? "";
+            const startDate = anyExp.startDate ?? "";
+            const endDate = anyExp.endDate ?? "";
             const description = anyExp.description ?? "";
             return {
               jobTitle,
               company,
-              period,
+              startDate,
+              endDate,
               description
             };
           })
@@ -56,7 +55,8 @@ export default function StepExperience({ onNext, onBack }: StepExperienceProps) 
             {
               jobTitle: "",
               company: "",
-              period: "",
+              startDate: "",
+              endDate: "",
               description: ""
             }
           ]
@@ -72,24 +72,20 @@ export default function StepExperience({ onNext, onBack }: StepExperienceProps) 
     append({
       jobTitle: "",
       company: "",
-      period: "",
+      startDate: "",
+      endDate: "",
       description: ""
     });
   }
 
   const onSubmit = (data: FormData) => {
-    // Преобразуем назад в структуру, ожидаемую в контексте (position, company, startDate, endDate, description)
-    const payload = data.experience.map((e) => {
-      const parts = e.period ? e.period.split("—").map((p) => p.trim()) : [];
-      return {
-        // сохраняем position из jobTitle — это соответствует возможной структуре контекста
-        position: e.jobTitle,
-        company: e.company,
-        description: e.description,
-        startDate: parts[0] ?? "",
-        endDate: parts[1] ?? ""
-      };
-    });
+    const payload = data.experience.map((e) => ({
+      position: e.jobTitle,
+      company: e.company,
+      description: e.description,
+      startDate: e.startDate,
+      endDate: e.endDate
+    }));
 
     dispatch({
       type: "UPDATE_FIELD",
@@ -133,18 +129,34 @@ export default function StepExperience({ onNext, onBack }: StepExperienceProps) 
             )}
           </div>
 
-          <div className="grid gap-1">
-            <label>Период</label>
-            <input
-              {...register(`experience.${index}.period`)}
-              className="border p-2 rounded"
-              placeholder="2022 — 2024"
-            />
-            {errors.experience?.[index]?.period && (
-              <p className="text-red-600">
-                {errors.experience[index]?.period?.message}
-              </p>
-            )}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="grid gap-1">
+              <label>Дата начала</label>
+              <input
+                type="date"
+                {...register(`experience.${index}.startDate`)}
+                className="border p-2 rounded"
+              />
+              {errors.experience?.[index]?.startDate && (
+                <p className="text-red-600">
+                  {errors.experience[index]?.startDate?.message}
+                </p>
+              )}
+            </div>
+
+            <div className="grid gap-1">
+              <label>Дата окончания</label>
+              <input
+                type="date"
+                {...register(`experience.${index}.endDate`)}
+                className="border p-2 rounded"
+              />
+              {errors.experience?.[index]?.endDate && (
+                <p className="text-red-600">
+                  {errors.experience[index]?.endDate?.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="grid gap-1">

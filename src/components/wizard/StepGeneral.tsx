@@ -78,15 +78,30 @@ export default function StepGeneral({ onNext }: StepGeneralProps) {
 
       <div>
         <label className="block font-medium">Телефон</label>
-        <input
-          {...register("phone")}
-          className="w-full border p-2 rounded"
-          placeholder="+996..."
-        />
+        <div className="flex gap-2">
+          <select
+        className="border p-2 rounded w-32"
+        defaultValue="+996"
+          >
+        <option value="+7">🇷🇺 Россия +7</option>
+        <option value="+996">🇰🇬 Кыргызстан +996</option>
+        <option value="+992">🇹🇯 Таджикистан +992</option>
+        <option value="+998">🇺🇿 Узбекистан +998</option>
+        <option value="+993">🇹🇲 Туркменистан +993</option>
+        <option value="+375">🇧🇾 Беларусь +375</option>
+        <option value="+380">🇺🇦 Украина +380</option>
+        <option value="+373">🇲🇩 Молдавия +373</option>
+          </select>
+          <input
+        {...register("phone")}
+        className="flex-1 border p-2 rounded"
+        placeholder="555-12-34"
+          />
+        </div>
       </div>
 
       <div>
-        <label className="block font-medium">Краткое описание</label>
+        <label className="block font-medium">О себе краткое описание</label>
         <textarea
           {...register("summary")}
           className="w-full border p-2 rounded min-h-[120px]"
