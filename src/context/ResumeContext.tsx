@@ -29,6 +29,7 @@ export type ResumeRole =
   | null;
 
 export interface ResumeState {
+  templateId: string | null;
   role: ResumeRole;
   fullName: string;
   email: string;
@@ -42,6 +43,7 @@ export interface ResumeState {
 
 type ResumeAction =
   | { type: "SET_ROLE"; payload: ResumeRole }
+  | { type: "SET_RESUME"; payload: ResumeState }
   | { type: "UPDATE_FIELD"; field: keyof ResumeState; value: unknown }
   | { type: "RESET" };
 
@@ -61,6 +63,7 @@ const ResumeContext = createContext<ResumeContextType | null>(null);
 // ------------------------
 
 const initialState: ResumeState = {
+  templateId: null,
   role: null,
   fullName: "",
   email: "",
@@ -83,6 +86,9 @@ function reducer(state: ResumeState, action: ResumeAction): ResumeState {
 
     case "UPDATE_FIELD":
       return { ...state, [action.field]: action.value };
+
+    case "SET_RESUME":
+      return { ...action.payload };
 
     case "RESET":
       return initialState;
