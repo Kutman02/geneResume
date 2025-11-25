@@ -25,6 +25,8 @@ function cloneNodeWithInlineStyles(element: Element): Element {
   return clone;
 }
 
+const A4_WIDTH_PX = 794; // ~210mm @ 96dpi
+
 export async function exportToPdf(
   elementId: string,
   filename: string
@@ -37,14 +39,31 @@ export async function exportToPdf(
 
   try {
     const cloned = cloneNodeWithInlineStyles(element) as HTMLElement;
-    cloned.style.maxWidth = `${element.clientWidth}px`;
-    cloned.style.width = `${element.clientWidth}px`;
+    const sourceWidth = element.getBoundingClientRect().width || A4_WIDTH_PX;
+
+    cloned.style.boxSizing = "border-box";
+    cloned.style.width = `${A4_WIDTH_PX}px`;
+    cloned.style.maxWidth = `${A4_WIDTH_PX}px`;
+    cloned.style.margin = "0 auto";
 
     const container = document.createElement("div");
     container.style.position = "absolute";
     container.style.left = "-10000px";
     container.style.top = "0";
-    container.style.width = `${element.clientWidth}px`;
+    container.style.width = `${A4_WIDTH_PX}px`;
+    container.style.padding = "0";
+
+    const scaleFactor =
+      sourceWidth > 0 ? Math.min(1, A4_WIDTH_PX / sourceWidth) : 1;
+
+    if (scaleFactor !== 1) {
+      cloned.style.transformOrigin = "top left";
+      cloned.style.transform = `scale(${scaleFactor})`;
+      cloned.dataset.scaleFactor = String(scaleFactor);
+      const rect = cloned.getBoundingClientRect();
+      container.style.height = `${rect.height}px`;
+    }
+
     container.appendChild(cloned);
     document.body.appendChild(container);
 
@@ -64,7 +83,8 @@ export async function exportToPdf(
         unit: "mm" as const,
         format: "a4" as const,
         compress: true
-      }
+      },
+      pagebreak: { mode: ["css", "legacy"] as const }
     };
 
     // Генерируем и скачиваем PDF
